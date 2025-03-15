@@ -416,7 +416,7 @@
         // 检查tokens使用情况
         function checkTokensUsage(newTokens) {
             let tokensUsage = JSON.parse(localStorage.getItem(TOKENS_STORAGE_KEY)) || {
-                count: a0,
+                count: 0,
                 lastReset: Date.now()
             };
             

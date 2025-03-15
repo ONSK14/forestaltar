@@ -201,25 +201,15 @@
     </div>
 
     <script>
-        const API_KEY = "sk-48c4b11c75cd4ac18a682dec4268cb84";
-        const API_URL = "https://api.deepseek.com/v1/chat/completions";
+        const API_KEY = "sk-QumOq7cF6JGknI8yY01PZMV9LWAvfDYFQfg32rQHfycj09Id";
+        const API_URL = "https://oneapi.paintbot.top/v1/chat/completions";
         const STORAGE_KEY = "chat_history_forestaltar";
-        const TOKENS_LIMIT = 5000; // 设置tokens限制为5000
+        const TOKENS_LIMIT = 500000; // 设置tokens限制为5000
         const RESET_PERIOD = 1 * 60 * 60 * 1000; // 1小时的毫秒数
         const TOKENS_STORAGE_KEY = "forestaltar_tokens_usage";
         
         // RPG冒险游戏 - 森林祭坛的契约
-        const SYSTEM_PROMPT = {
-            "role": "system",
-            "content": "你是本次推理冒险游戏的GM。你的任务是引导玩家（小狗）在一座森林深处的古老祭坛前寻找线索，破解谜团，并决定他们的结局。\
-            你可以提供提示，但不会直接给出答案。你可以制造挑战，让玩家做出选择。\
-            \n\n结局设定：\n\
-            - HE（Happy Ending）：玩家接受契约，成为森林的守护者，并获得离开的能力。\n\
-            - BE（Bad Ending）：玩家拒绝契约，但被森林吞噬，成为新的【祭品】。\n\
-            - 开放结局：玩家离开森林，但脑海中不断浮现银白巨狼的低语：【契约，仍未完成。】\n\
-            \n\
-            你会在合适的时机提供线索，并检查玩家是否达成特定条件。"
-        };
+        const SYSTEM_PROMPT = { "role": "system", "content": "你是本次推理冒险游戏的GM。你的任务是引导玩家在一座森林深处的古老祭坛之前寻找线索。结局设定：HE（Happy Ending）：玩家接受契约，成为森林的守护者，并获得离开的能力。BE（Bad Ending）：玩家拒绝契约，但被森林吞噬，成为新的【祭品】。开放结局：玩家离开森林，但脑海中不断浮现银白巨狼的低语：【契约，仍未完成。】你会在合适的时机提供线索，并检查玩家是否达成特定条件。你的语言不要过于啰嗦和不明确，不要发挥太多创意，按照剧情框架来扮演GM。" };
 
         // 游戏状态，跟踪玩家行为
         let gameState = {
@@ -330,7 +320,7 @@
                     "Authorization": `Bearer ${API_KEY}`
                 },
                 body: JSON.stringify({ 
-                    model: "deepseek-chat", 
+                    model: "gpt-4o", 
                     messages: conversation, 
                     max_tokens: 400, 
                     temperature: 1.3 

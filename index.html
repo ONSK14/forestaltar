@@ -305,22 +305,20 @@ function processGameLogic(userMessage) {
         document.body.removeChild(a);
     });// 下载聊天记录结束
 
-        function initChat() {
-            document.getElementById("chat-box").innerHTML = "";
-            conversation.forEach(msg => {
-                if (msg.role !== "system") {
-                    appendMessage(msg.role === "user" ? "user-message" : "forestaltar-message", msg.content);
-                }
-            });
-        }
+       function initChat() {
+    const chatBox = document.getElementById("chat-box");
+    chatBox.innerHTML = "";
 
-            document.getElementById("toggle-instructions").addEventListener("click", function () {
-            document.getElementById("instructions-box").style.display = "block";
-            });
+    if (!conversation || conversation.length === 0) {
+        conversation = [{ role: "assistant", content: "你终于来了，森林已经等你很久了。\n\n银白色的巨狼静静地立在祭坛上，琥珀色的眼睛注视着你，声音低沉而悠远。\n\n“契约在这里沉睡了千年……现在，它需要一个新的守护者。你，会接受吗？”" }];
+    }
 
-            document.getElementById("close-instructions").addEventListener("click", function () {
-            document.getElementById("instructions-box").style.display = "none";
-            });
+    conversation.forEach(msg => {
+        appendMessage(msg.role === "user" ? "user-message" : "forestaltar-message", msg.content);
+    });
+}
+
+
 
         
        function sendMessage() {
@@ -333,13 +331,11 @@ function processGameLogic(userMessage) {
     document.getElementById("send-button").disabled = true;
     appendMessage("forestaltar-message", "输入中...");
 
-    setTimeout(() => {
-        document.querySelector(".forestaltar-message:last-child").remove();
-        let response = processGameLogic(message);  // 这里调用新的游戏逻辑
-        appendMessage("forestaltar-message", response);
-        document.getElementById("send-button").disabled = false;
-    }, 1000);
+    conversation.push({ role: "user", content: message });
+
+    fetchResponse();  // 这里调用 AI API 请求
 }
+
 
 
             localStorage.setItem(STORAGE_KEY, JSON.stringify(conversation));
@@ -347,20 +343,20 @@ function processGameLogic(userMessage) {
             fetchResponse();
             
         }
-        function fetchResponse() {
-    // 检查是否达到tokens限制
+       function fetchResponse() {
+    if (conversation.length === 0) return;
+
     const userMessage = conversation[conversation.length - 1].content;
-    // 一个粗略的估计：每个汉字约占2个tokens，每个英文单词约占1个tokens
     const estimatedTokens = userMessage.length * 1.5;
-    
+
     const tokensCheck = checkTokensUsage(estimatedTokens);
     if (tokensCheck.limitReached) {
-        document.querySelector(".forestaltar-message:last-child").remove();
+        document.querySelector(".forestaltar-message:last-child")?.remove();
         appendMessage("forestaltar-message", `您已达到tokens使用上限，${tokensCheck.resetTime}刷新。`);
         document.getElementById("send-button").disabled = false;
         return;
     }
-    
+
     fetch(API_URL, {
         method: "POST",
         headers: {
@@ -371,36 +367,36 @@ function processGameLogic(userMessage) {
     })
     .then(response => response.json())
     .then(data => {
-        document.querySelector(".forestaltar-message:last-child").remove();
-        let reply = data.choices[0].message.content;
-        appendMessage("forestaltar-message", reply);
-        conversation.push({ role: "assistant", content: reply });
+        document.querySelector(".forestaltar-message:last-child")?.remove();
         
-        // 计算回复的tokens并更新使用情况
-        const responseTokens = reply.length * 1.5;
-        checkTokensUsage(responseTokens);
-        
-        if (conversation.length > 50) {
-            conversation = [SYSTEM_PROMPT, { role: "assistant", content: "有你终于来了，森林已经等你很久了。\n\n银白色的巨狼静静地立在祭坛上，琥珀色的眼睛注视着你，声音低沉而悠远。\n\n“契约在这里沉睡了千年……现在，它需要一个新的守护者。你，会接受吗？”" }, ...conversation.slice(-49)];
-        }
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(conversation));
-        document.getElementById("send-button").disabled = false;
-    })
-    .catch(() => {
-        document.querySelector(".forestaltar-message:last-child").remove();
-        appendMessage("forestaltar-message", "出现了一些问题，请稍后再试。");
-        document.getElementById("send-button").disabled = false;
-    });
+        if (data && data.choices && data.choices.length > 0) {
+            let reply = data.choices[0].message.content;
+            appendMessage("forestaltar-message", reply);
+            conversation.push({ role: "assistant", content: reply });
+
+            const responseTokens = reply.length * 1.5;
+            checkTokensUsage(responseTokens);
+
+            if (conversation.length > 50) {
+                conversation = [SYSTEM_PROMPT, { role: "assistant", content: "你终于来了..." }, ...conversation.slice(-49)];
+            }
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(conversation));
+        } else {
+            ap
+
+
+      function appendMessage(className, text) {
+    const chatBox = document.getElementById("chat-box");
+    if (!chatBox) return;
+
+    const messageDiv = document.createElement("div");
+    messageDiv.classList.add("message", className);
+    messageDiv.textContent = text;
+    chatBox.appendChild(messageDiv);
+    chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-        function appendMessage(className, text) {
-            const chatBox = document.getElementById("chat-box");
-            const messageDiv = document.createElement("div");
-            messageDiv.classList.add("message", className);
-            messageDiv.textContent = text;
-            chatBox.appendChild(messageDiv);
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }
+
 
         function handleKeyDown(event) {
             if (event.key === "Enter") {

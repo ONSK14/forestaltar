@@ -64,128 +64,131 @@
             background-color: red;
         }
         #instructions-container {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-}
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
         
-#chat-container {/* 背景图片1 */
-     width: 90%;
-    max-width: 600px;
-    height: 80vh;
-    display: flex;
-    flex-direction: column;
-    border-radius: 10px;
-    overflow: hidden;
-    background-color: #2c2c2c;
-    position: relative; /* 让背景图片位于对话框之上，但对话气泡之下 */
-}
+        #chat-container {
+            width: 90%;
+            max-width: 600px;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #2c2c2c;
+            position: relative;
+        }
 
-/* 让背景图片放在对话框之上，但对话气泡之下 */
-#chat-container::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('forestaltar.png'); /* 使用用户指定的图片 */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0.3; /* 设置背景图片透明度 30% */
-    z-index: 1; /* 确保背景图片在对话框之上 */
-    pointer-events: none; /* 避免影响用户交互 */
-}
+        #chat-container::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('forestaltar.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.3;
+            z-index: 1;
+            pointer-events: none;
+        }
 
-/* 让所有对话内容在背景图片之上 */
-#chat-box {
-    position: relative;
-    z-index: 3;
-}
+        #chat-box {
+            position: relative;
+            z-index: 3;
+        }
 
-/* 让输入框和按钮在背景图片之上 */
-#input-container {
-    position: relative;
-    z-index: 4;
-}
+        #input-container {
+            position: relative;
+            z-index: 4;
+        }
 
-/* 设置对话气泡的背景透明度为 80% 但文字不变透明 */
-.message {
-    background-color: rgba(68, 68, 68, 0.8); /* 仅背景透明度 80% */
-    padding: 10px;
-    margin: 5px;
-    border-radius: 10px;
-    max-width: 70%;
-    color: white; /* 确保文字不变透明 */
-    position: relative;
-    z-index: 2; /* 让气泡位于背景图片之上，但对话框之下 */
-}
+        .message {
+            background-color: rgba(68, 68, 68, 0.8);
+            padding: 10px;
+            margin: 5px;
+            border-radius: 10px;
+            max-width: 70%;
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
 
-/* 背景图片2 */
+        .user-message {
+            background-color: rgba(187, 187, 187, 0.8);
+            align-self: flex-end;
+            color: white;
+        }
 
-                .user-message {
-    background-color: rgba(187, 187, 187, 0.8); /* 保留 #bbbbbb 颜色，并设定透明度为 80% */
-    align-self: flex-end;
-    color: white; /* 确保文字保持白色，不透明 */
-}
+        .forestaltar-message {
+            background-color: rgba(68, 68, 68, 0.8);
+            align-self: flex-start;
+            color: white;
+        }
+        
+        #toggle-instructions {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
 
-.forestaltar-message {
-    background-color: rgba(68, 68, 68, 0.8); /* 保留 #444 颜色，并设定透明度为 80% */
-    align-self: flex-start;
-    color: white; /* 确保文字保持白色，不透明 */
-}
-        #toggle-instructions {/* 说明1 */
-    background-color: black;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    cursor: pointer;
-    border-radius: 5px;
-}
+        #instructions-box {
+            display: none;
+            position: absolute;
+            top: 40px;
+            left: 10px;
+            width: 250px;
+            background-color: white;
+            color: black;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 5;
+        }
 
-#instructions-box {
-    display: none; /* 默认隐藏 */
-    position: absolute;
-    top: 40px;
-    left: 10px;
-    width: 250px;
-    background-color: white;
-    color: black;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-    z-index: 5;
-}
-
-#close-instructions {
-    float: right;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-}/* 说明2 */
+        #close-instructions {
+            float: right;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
         h1 {
-    margin-top: 40px; /* 调整标题与上方的距离 */
-}
+            margin-top: 40px;
+        }
 
-
+        #download-chat {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
     <div id="instructions-container">
-    <button id="toggle-instructions">使用说明</button>
-    <button id="download-chat">下载冒险记录</button>
-    <div id="instructions-box">
-        <span id="close-instructions">×</span>
-        <p>你误入了一片被遗忘的森林，在黑暗与迷雾交错的深处，一座古老的祭坛伫立其中。银白色的巨狼站在中央，似乎早已知道你的到来。</p>
-        <p>这里流传着一个古老的契约——你会选择接受还是拒绝？</p>
-        <p>但这契约到底意味着什么？森林里究竟藏着怎样的秘密？</p>
-        <p>—你只有一次选择的机会，谨慎决定你的命运。</p>
-        <p style="color: gray;">每次对话最大记忆为50条，超过50条达到51条时会删除最久远的第1条记忆。每小时限使用5000tokens。选择【清除冒险记录】时会开启一个新的对话串。可以点击【下载冒险记录】下载可命名的txt格式的聊天记录文件。</p>
-        <p style="color: #4d4d4d;">@我为什么在墙上</p>
+        <button id="toggle-instructions">使用说明</button>
+        <button id="download-chat">下载冒险记录</button>
+        <div id="instructions-box">
+            <span id="close-instructions">×</span>
+            <p>你误入了一片被遗忘的森林，在黑暗与迷雾交错的深处，一座古老的祭坛伫立其中。银白色的巨狼站在中央，似乎早已知道你的到来。</p>
+            <p>这里流传着一个古老的契约——你会选择接受还是拒绝？</p>
+            <p>但这契约到底意味着什么？森林里究竟藏着怎样的秘密？</p>
+            <p>—你只有一次选择的机会，谨慎决定你的命运。</p>
+            <p style="color: gray;">每次对话最大记忆为50条，超过50条达到51条时会删除最久远的第1条记忆。每小时限使用5000tokens。选择【清除冒险记录】时会开启一个新的对话串。可以点击【下载冒险记录】下载可命名的txt格式的聊天记录文件。</p>
+            <p style="color: #4d4d4d;">@我为什么在墙上</p>
+        </div>
     </div>
-</div>
 
     <h1 id="page-title">Forest Altar</h1>
     <button id="clear-button" onclick="clearChat()">清除冒险记录</button>
@@ -201,220 +204,208 @@
         const API_KEY = "sk-48c4b11c75cd4ac18a682dec4268cb84";
         const API_URL = "https://api.deepseek.com/v1/chat/completions";
         const STORAGE_KEY = "chat_history_forestaltar";
-        const TOKENS_LIMIT = 50000000; // 设置tokens限制
+        const TOKENS_LIMIT = 500000000; // 设置tokens限制为5000
         const RESET_PERIOD = 1 * 60 * 60 * 1000; // 1小时的毫秒数
         const TOKENS_STORAGE_KEY = "forestaltar_tokens_usage";
+        
         // RPG冒险游戏 - 森林祭坛的契约
-const SYSTEM_PROMPT = {
-    "role": "system",
-    "content": "你是本次推理冒险游戏的GM。你的任务是引导玩家（小狗）在一座森林深处的古老祭坛前寻找线索，破解谜团，并决定他们的结局。\
-    你可以提供提示，但不会直接给出答案。你可以制造挑战，让玩家做出选择。\
-    \n\n结局设定：\n\
-    - HE（Happy Ending）：玩家接受契约，成为森林的守护者，并获得离开的能力。\n\
-    - BE（Bad Ending）：玩家拒绝契约，但被森林吞噬，成为新的“祭品”。\n\
-    - 开放结局：玩家离开森林，但脑海中不断浮现银白巨狼的低语：“契约，仍未完成。”\n\
-    \n\
-    你会在合适的时机提供线索，并检查玩家是否达成特定条件。"
-};
+        const SYSTEM_PROMPT = {
+            "role": "system",
+            "content": "你是本次推理冒险游戏的GM。你的任务是引导玩家（小狗）在一座森林深处的古老祭坛前寻找线索，破解谜团，并决定他们的结局。\
+            你可以提供提示，但不会直接给出答案。你可以制造挑战，让玩家做出选择。\你在对话的最开始要让玩家发现自己是一只小狗\
+            \n\n结局设定：\n\
+            - HE（Happy Ending）：玩家接受契约，成为森林的守护者，并获得离开的能力。\n\
+            - BE（Bad Ending）：玩家拒绝契约，但被森林吞噬，成为新的"祭品"。\n\
+            - 开放结局：玩家离开森林，但脑海中不断浮现银白巨狼的低语："契约，仍未完成。"\n\
+            \n\
+            你会在合适的时机提供线索，并检查玩家是否达成特定条件。"
+        };
 
-// 游戏状态，跟踪玩家行为
-let gameState = {
-    foundContract: false,    // 是否找到契约
-    metSilverWolf: false,    // 是否遇见银白巨狼
-    understoodPurpose: false, // 是否理解契约的意义
-    acceptedContract: false, // 是否接受契约
-    hasEscaped: false        // 是否成功离开
-};
-
-function processGameLogic(userMessage) {
-    let response = "";
-
-    if (userMessage.includes("调查") || userMessage.includes("搜索")) {
-        response = "你在祭坛周围仔细观察，发现地面上刻着复杂的契约符文，似乎已经存在千年之久。”;
-        gameState.foundContract = true;
-    } 
-    else if (userMessage.includes("遇见") || userMessage.includes("银白巨狼")) {
-        response = "你听到低沉的脚步声，一匹皮毛银白的巨狼站在祭坛上，目光深邃。‘你能听见森林的声音吗？’它问道。”;
-        gameState.metSilverWolf = true;
-    }
-    else if (userMessage.includes("契约") && gameState.metSilverWolf) {
-        response = "银白巨狼缓缓走近，低声说道：‘契约等待了很久，它需要新的守护者。’\
-        \n\n（你要接受契约吗？输入 ‘接受契约’ 或 ‘拒绝契约’）";
-        gameState.understoodPurpose = true;
-    }
-    else if (userMessage.includes("接受契约") && gameState.understoodPurpose) {
-        response = "你触摸了祭坛，符文散发出温暖的光芒，银白巨狼的目光柔和。\
-        \n🎉 HE（Happy Ending）：你成为森林的新守护者，获得离开的能力。\
-        \n\n游戏结束。";
-        gameState.acceptedContract = true;
-    }
-    else if (userMessage.includes("拒绝契约") && gameState.understoodPurpose) {
-        response = "银白巨狼的目光变得深沉，它轻叹一声，森林的黑暗开始吞噬你的身影……\
-        \n💀 BE（Bad Ending）：你被森林吞噬，成为新的‘祭品’。\
-        \n\n游戏结束。";
-    }
-    else if (userMessage.includes("逃出") || userMessage.includes("离开")) {
-        if (gameState.acceptedContract) {
-            response = "你成功走出了森林，银白巨狼注视着你远去，低语道：‘愿你履行你的守护之责。’\
-            \n🎉 你达成了HE（Happy Ending）！\
-            \n游戏结束。";
-            gameState.hasEscaped = true;
-        } else {
-            response = "你试图离开，但森林的路径似乎无穷无尽……黑暗在背后悄然蔓延。”;
-        }
-    }
-    else {
-        response = "银白巨狼轻轻摇头：‘你的决定……还未准备好吗？’（试试探索、寻找线索？）";
-    }
-
-    return response;
-}
-
-
-        let conversation = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [SYSTEM_PROMPT];
+        // 游戏状态，跟踪玩家行为
+        let gameState = {
+            foundContract: false,    // 是否找到契约
+            metSilverWolf: false,    // 是否遇见银白巨狼
+            understoodPurpose: false, // 是否理解契约的意义
+            acceptedContract: false, // 是否接受契约
+            hasEscaped: false        // 是否成功离开
+        };
+        
+        // 初始化对话数组
+        let conversation = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [
+            SYSTEM_PROMPT,
+            { 
+                role: "assistant", 
+                content: "你终于来了，森林已经等你很久了。\n\n银白色的巨狼静静地立在祭坛上，琥珀色的眼睛注视着你，声音低沉而悠远。\n\n"契约在这里沉睡了千年……现在，它需要一个新的守护者。你，会接受吗？"" 
+            }
+        ];
+        
         let conversationId = sessionStorage.getItem("conversation_id") || generateUUID();
         sessionStorage.setItem("conversation_id", conversationId);
 
-        document.getElementById("download-chat").addEventListener("click", function () {// 下载聊天记录开始
-        let conversation = JSON.parse(localStorage.getItem("chat_history_forestaltar"));
-        if (!conversation || conversation.length === 0) {
-            alert("没有冒险记录可下载。");
-            return;
-        }
-        
-        let chatText = conversation
-            .filter(msg => msg.role !== "system") // 过滤掉 system 提示
-            .map(msg => {
-                if (msg.role === "assistant") {
-                    return `GM：${msg.content.replace(/\n/g, ' ')}`; // 替换 GM 话语中的换行
-                } else {
-                    return `你：${msg.content}`;
+        // 初始化聊天界面
+        function initChat() {
+            document.getElementById("chat-box").innerHTML = "";
+            conversation.forEach(msg => {
+                if (msg.role !== "system") {
+                    appendMessage(msg.role === "user" ? "user-message" : "forestaltar-message", msg.content);
                 }
-            })
-            .join("\n\n"); // 每条消息之间空一行
-        
-        let fileName = prompt("请输入文件名：", "adventure_history");
-        if (!fileName) return; // 如果用户取消输入，则不下载
-        
-        let blob = new Blob([chatText], { type: "text/plain" });
-        let a = document.createElement("a");
-        a.href = URL.createObjectURL(blob);
-        a.download = fileName + ".txt";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-    });// 下载聊天记录结束
-
-       function initChat() {
-    const chatBox = document.getElementById("chat-box");
-    chatBox.innerHTML = "";
-
-    if (!conversation || conversation.length === 0) {
-        conversation = [{ role: "assistant", content: "你终于来了，森林已经等你很久了。\n\n银白色的巨狼静静地立在祭坛上，琥珀色的眼睛注视着你，声音低沉而悠远。\n\n“契约在这里沉睡了千年……现在，它需要一个新的守护者。你，会接受吗？”" }];
-    }
-
-    conversation.forEach(msg => {
-        appendMessage(msg.role === "user" ? "user-message" : "forestaltar-message", msg.content);
-    });
-}
-
-
-
-        
-       function sendMessage() {
-    const inputField = document.getElementById("message-input");
-    const message = inputField.value.trim();
-    if (!message) return;
-
-    appendMessage("user-message", message);
-    inputField.value = "";
-    document.getElementById("send-button").disabled = true;
-    appendMessage("forestaltar-message", "输入中...");
-
-    conversation.push({ role: "user", content: message });
-
-    fetchResponse();  // 这里调用 AI API 请求
-}
-
-
-
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(conversation));
-
-            fetchResponse();
-            
+            });
         }
-       function fetchResponse() {
-    if (conversation.length === 0) return;
 
-    const userMessage = conversation[conversation.length - 1].content;
-    const estimatedTokens = userMessage.length * 1.5;
-
-    const tokensCheck = checkTokensUsage(estimatedTokens);
-    if (tokensCheck.limitReached) {
-        document.querySelector(".forestaltar-message:last-child")?.remove();
-        appendMessage("forestaltar-message", `您已达到tokens使用上限，${tokensCheck.resetTime}刷新。`);
-        document.getElementById("send-button").disabled = false;
-        return;
-    }
-
-    fetch(API_URL, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${API_KEY}`
-        },
-        body: JSON.stringify({ model: "deepseek-chat", messages: conversation, max_tokens: 400, temperature: 1.3 })
-    })
-    .then(response => response.json())
-    .then(data => {
-        document.querySelector(".forestaltar-message:last-child")?.remove();
-        
-        if (data && data.choices && data.choices.length > 0) {
-            let reply = data.choices[0].message.content;
-            appendMessage("forestaltar-message", reply);
-            conversation.push({ role: "assistant", content: reply });
-
-            const responseTokens = reply.length * 1.5;
-            checkTokensUsage(responseTokens);
-
-            if (conversation.length > 50) {
-                conversation = [SYSTEM_PROMPT, { role: "assistant", content: "你终于来了..." }, ...conversation.slice(-49)];
+        // 处理游戏逻辑
+        function processGameLogic(userMessage) {
+            // 检查输入内容，更新游戏状态
+            if (userMessage.toLowerCase().includes("调查") || userMessage.toLowerCase().includes("搜索")) {
+                gameState.foundContract = true;
+            } 
+            else if (userMessage.toLowerCase().includes("遇见") || userMessage.toLowerCase().includes("银白巨狼")) {
+                gameState.metSilverWolf = true;
             }
+            else if (userMessage.toLowerCase().includes("契约") && gameState.metSilverWolf) {
+                gameState.understoodPurpose = true;
+            }
+            else if (userMessage.toLowerCase().includes("接受契约") && gameState.understoodPurpose) {
+                gameState.acceptedContract = true;
+            }
+            else if (userMessage.toLowerCase().includes("逃出") || userMessage.toLowerCase().includes("离开")) {
+                if (gameState.acceptedContract) {
+                    gameState.hasEscaped = true;
+                }
+            }
+            
+            // 记录用户消息到对话历史
+            conversation.push({ role: "user", content: userMessage });
             localStorage.setItem(STORAGE_KEY, JSON.stringify(conversation));
-        } else {
-            ap
+            
+            // 返回AI处理
+            return true;
+        }
 
+        // 添加消息到聊天窗口
+        function appendMessage(className, text) {
+            const chatBox = document.getElementById("chat-box");
+            const messageDiv = document.createElement("div");
+            messageDiv.classList.add("message", className);
+            messageDiv.textContent = text;
+            chatBox.appendChild(messageDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
 
-      function appendMessage(className, text) {
-    const chatBox = document.getElementById("chat-box");
-    if (!chatBox) return;
+        // 发送消息
+        function sendMessage() {
+            const inputField = document.getElementById("message-input");
+            const message = inputField.value.trim();
+            if (!message) return;
 
-    const messageDiv = document.createElement("div");
-    messageDiv.classList.add("message", className);
-    messageDiv.textContent = text;
-    chatBox.appendChild(messageDiv);
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
+            appendMessage("user-message", message);
+            inputField.value = "";
+            document.getElementById("send-button").disabled = true;
+            appendMessage("forestaltar-message", "输入中...");
 
+            // 处理游戏逻辑并获取响应
+            if (processGameLogic(message)) {
+                fetchResponse();
+            }
+        }
 
+        // 从API获取响应
+        function fetchResponse() {
+            // 检查是否达到tokens限制
+            const userMessage = conversation[conversation.length - 1].content;
+            // 一个粗略的估计：每个字符约占1.5个tokens
+            const estimatedTokens = userMessage.length * 1.5;
+            
+            const tokensCheck = checkTokensUsage(estimatedTokens);
+            if (tokensCheck.limitReached) {
+                document.querySelector(".forestaltar-message:last-child").remove();
+                appendMessage("forestaltar-message", `您已达到tokens使用上限，${tokensCheck.resetTime}后刷新。`);
+                document.getElementById("send-button").disabled = false;
+                return;
+            }
+            
+            fetch(API_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${API_KEY}`
+                },
+                body: JSON.stringify({ 
+                    model: "deepseek-chat", 
+                    messages: conversation, 
+                    max_tokens: 400, 
+                    temperature: 1.3 
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.querySelector(".forestaltar-message:last-child").remove();
+                let reply = data.choices[0].message.content;
+                appendMessage("forestaltar-message", reply);
+                conversation.push({ role: "assistant", content: reply });
+                
+                // 计算回复的tokens并更新使用情况
+                const responseTokens = reply.length * 1.5;
+                updateTokensUsage(responseTokens);
+                
+                // 保持最大50条消息
+                if (conversation.length > 51) {
+                    // 保留系统提示和欢迎消息，只删除最旧的用户消息和回复
+                    conversation = [
+                        conversation[0], 
+                        conversation[1], 
+                        ...conversation.slice(-49)
+                    ];
+                }
+                
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(conversation));
+                document.getElementById("send-button").disabled = false;
+            })
+            .catch(error => {
+                console.error("API请求错误:", error);
+                document.querySelector(".forestaltar-message:last-child").remove();
+                appendMessage("forestaltar-message", "出现了一些问题，请稍后再试。");
+                document.getElementById("send-button").disabled = false;
+            });
+        }
 
+        // 处理键盘输入
         function handleKeyDown(event) {
             if (event.key === "Enter") {
                 sendMessage();
             }
         }
 
+        // 清除聊天历史
         function clearChat() {
             if (confirm("确定要清除冒险记录吗？这会开启一次全新的冒险。")) {
                 localStorage.removeItem(STORAGE_KEY);
                 sessionStorage.removeItem("conversation_id");
                 sessionStorage.setItem("conversation_id", generateUUID());
-                conversation = [SYSTEM_PROMPT, { role: "assistant", content: "你终于来了，森林已经等你很久了。\n\n银白色的巨狼静静地立在祭坛上，琥珀色的眼睛注视着你，声音低沉而悠远。\n\n“契约在这里沉睡了千年……现在，它需要一个新的守护者。你，会接受吗？”" }];
+                
+                // 重置游戏状态
+                gameState = {
+                    foundContract: false,
+                    metSilverWolf: false,
+                    understoodPurpose: false,
+                    acceptedContract: false,
+                    hasEscaped: false
+                };
+                
+                // 重置对话
+                conversation = [
+                    SYSTEM_PROMPT, 
+                    { 
+                        role: "assistant", 
+                        content: "你终于来了，森林已经等你很久了。\n\n银白色的巨狼静静地立在祭坛上，琥珀色的眼睛注视着你，声音低沉而悠远。\n\n"契约在这里沉睡了千年……现在，它需要一个新的守护者。你，会接受吗？"" 
+                    }
+                ];
+                
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(conversation));
                 initChat();
             }
         }
 
+        // 生成UUID
         function generateUUID() {
             return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
                 var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
@@ -422,38 +413,95 @@ function processGameLogic(userMessage) {
             });
         }
 
-        // 检查并更新tokens使用情况
-function checkTokensUsage(newTokens) {
-    let tokensUsage = JSON.parse(localStorage.getItem(TOKENS_STORAGE_KEY)) || {
-        count: 0,
-        lastReset: Date.now()
-    };
-    
-    // 如果已经过了重置周期，重置tokens计数
-    if (Date.now() - tokensUsage.lastReset > RESET_PERIOD) {
-        tokensUsage = {
-            count: 0,
-            lastReset: Date.now()
-        };
-    }
-    
-    // 更新tokens计数
-    tokensUsage.count += newTokens;
-    localStorage.setItem(TOKENS_STORAGE_KEY, JSON.stringify(tokensUsage));
-    
-    // 检查是否超过限制
-    if (tokensUsage.count >= TOKENS_LIMIT) {
-        const resetTime = new Date(tokensUsage.lastReset + RESET_PERIOD);
-        const resetTimeString = resetTime.toLocaleString('zh-CN');
-        return {
-            limitReached: true,
-            resetTime: resetTimeString
-        };
-    }
-    
-    return { limitReached: false };
-}
+        // 检查tokens使用情况
+        function checkTokensUsage(newTokens) {
+            let tokensUsage = JSON.parse(localStorage.getItem(TOKENS_STORAGE_KEY)) || {
+                count: 0,
+                lastReset: Date.now()
+            };
+            
+            // 如果已经过了重置周期，重置tokens计数
+            if (Date.now() - tokensUsage.lastReset > RESET_PERIOD) {
+                tokensUsage = {
+                    count: 0,
+                    lastReset: Date.now()
+                };
+            }
+            
+            // 检查是否超过限制
+            if (tokensUsage.count + newTokens >= TOKENS_LIMIT) {
+                const resetTime = new Date(tokensUsage.lastReset + RESET_PERIOD);
+                const resetTimeString = resetTime.toLocaleString('zh-CN');
+                return {
+                    limitReached: true,
+                    resetTime: resetTimeString
+                };
+            }
+            
+            return { limitReached: false };
+        }
 
+        // 更新tokens使用情况
+        function updateTokensUsage(newTokens) {
+            let tokensUsage = JSON.parse(localStorage.getItem(TOKENS_STORAGE_KEY)) || {
+                count: 0,
+                lastReset: Date.now()
+            };
+            
+            // 如果已经过了重置周期，重置tokens计数
+            if (Date.now() - tokensUsage.lastReset > RESET_PERIOD) {
+                tokensUsage = {
+                    count: 0,
+                    lastReset: Date.now()
+                };
+            }
+            
+            // 更新tokens计数
+            tokensUsage.count += newTokens;
+            localStorage.setItem(TOKENS_STORAGE_KEY, JSON.stringify(tokensUsage));
+        }
+
+        // 下载聊天记录
+        document.getElementById("download-chat").addEventListener("click", function() {
+            let chatHistory = JSON.parse(localStorage.getItem(STORAGE_KEY));
+            if (!chatHistory || chatHistory.length <= 1) {
+                alert("没有冒险记录可下载。");
+                return;
+            }
+            
+            let chatText = chatHistory
+                .filter(msg => msg.role !== "system") // 过滤掉system提示
+                .map(msg => {
+                    if (msg.role === "assistant") {
+                        return `GM：${msg.content}`;
+                    } else {
+                        return `你：${msg.content}`;
+                    }
+                })
+                .join("\n\n"); // 每条消息之间空一行
+            
+            let fileName = prompt("请输入文件名：", "forestaltar_" + new Date().toLocaleDateString());
+            if (!fileName) return; // 如果用户取消输入，则不下载
+            
+            let blob = new Blob([chatText], { type: "text/plain" });
+            let a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = fileName + ".txt";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        });
+
+        // 使用说明显示/隐藏
+        document.getElementById("toggle-instructions").addEventListener("click", function() {
+            document.getElementById("instructions-box").style.display = "block";
+        });
+
+        document.getElementById("close-instructions").addEventListener("click", function() {
+            document.getElementById("instructions-box").style.display = "none";
+        });
+
+        // 初始化页面
         initChat();
     </script>
 </body>

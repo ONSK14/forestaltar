@@ -201,8 +201,8 @@
     </div>
 
     <script>
-        const API_KEY = "sk-QumOq7cF6JGknI8yY01PZMV9LWAvfDYFQfg32rQHfycj09Id";
-        const API_URL = "https://oneapi.paintbot.top/v1/chat/completions";
+        const API_KEY = "sk-48c4b11c75cd4ac18a682dec4268cb84";
+        const API_URL = "https://api.deepseek.com/v1/chat/completions";
         const STORAGE_KEY = "chat_history_forestaltar";
         const TOKENS_LIMIT = 500000; // 设置tokens限制为5000
         const RESET_PERIOD = 1 * 60 * 60 * 1000; // 1小时的毫秒数
@@ -320,7 +320,7 @@
                     "Authorization": `Bearer ${API_KEY}`
                 },
                 body: JSON.stringify({ 
-                    model: "gpt-4o", 
+                    model: "deepseek-chat", 
                     messages: conversation, 
                     max_tokens: 400, 
                     temperature: 1.3 

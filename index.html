@@ -191,12 +191,12 @@
     </div>
 
     <h1 id="page-title">Forest Altar</h1>
-    <button id="clear-button" onclick="clearChat()">清除冒险记录</button>
+    <button id="clear-button">清除冒险记录</button>
     <div id="chat-container">
         <div id="chat-box"></div>
         <div id="input-container">
-            <input type="text" id="message-input" placeholder="输入消息..." onkeydown="handleKeyDown(event)">
-            <button id="send-button" onclick="sendMessage()">发送</button>
+            <input type="text" id="message-input" placeholder="输入消息...">
+            <button id="send-button">发送</button>
         </div>
     </div>
 
@@ -204,7 +204,7 @@
         const API_KEY = "sk-48c4b11c75cd4ac18a682dec4268cb84";
         const API_URL = "https://api.deepseek.com/v1/chat/completions";
         const STORAGE_KEY = "chat_history_forestaltar";
-        const TOKENS_LIMIT = 500000000; // 设置tokens限制为5000
+        const TOKENS_LIMIT = 5000; // 设置tokens限制为5000
         const RESET_PERIOD = 1 * 60 * 60 * 1000; // 1小时的毫秒数
         const TOKENS_STORAGE_KEY = "forestaltar_tokens_usage";
         
@@ -212,7 +212,7 @@
         const SYSTEM_PROMPT = {
             "role": "system",
             "content": "你是本次推理冒险游戏的GM。你的任务是引导玩家（小狗）在一座森林深处的古老祭坛前寻找线索，破解谜团，并决定他们的结局。\
-            你可以提供提示，但不会直接给出答案。你可以制造挑战，让玩家做出选择。\你在对话的最开始要让玩家发现自己是一只小狗\
+            你可以提供提示，但不会直接给出答案。你可以制造挑战，让玩家做出选择。\
             \n\n结局设定：\n\
             - HE（Happy Ending）：玩家接受契约，成为森林的守护者，并获得离开的能力。\n\
             - BE（Bad Ending）：玩家拒绝契约，但被森林吞噬，成为新的"祭品"。\n\
@@ -368,7 +368,7 @@
             });
         }
 
-        // 处理键盘输入
+       // 处理键盘输入
         function handleKeyDown(event) {
             if (event.key === "Enter") {
                 sendMessage();
@@ -416,7 +416,7 @@
         // 检查tokens使用情况
         function checkTokensUsage(newTokens) {
             let tokensUsage = JSON.parse(localStorage.getItem(TOKENS_STORAGE_KEY)) || {
-                count: 0,
+                count: a0,
                 lastReset: Date.now()
             };
             
@@ -461,48 +461,66 @@
             localStorage.setItem(TOKENS_STORAGE_KEY, JSON.stringify(tokensUsage));
         }
 
-        // 下载聊天记录
-        document.getElementById("download-chat").addEventListener("click", function() {
-            let chatHistory = JSON.parse(localStorage.getItem(STORAGE_KEY));
-            if (!chatHistory || chatHistory.length <= 1) {
-                alert("没有冒险记录可下载。");
-                return;
-            }
+        // 添加事件监听器
+        function addEventListeners() {
+            // 发送按钮事件
+            document.getElementById("send-button").addEventListener("click", sendMessage);
             
-            let chatText = chatHistory
-                .filter(msg => msg.role !== "system") // 过滤掉system提示
-                .map(msg => {
-                    if (msg.role === "assistant") {
-                        return `GM：${msg.content}`;
-                    } else {
-                        return `你：${msg.content}`;
-                    }
-                })
-                .join("\n\n"); // 每条消息之间空一行
+            // 输入框回车事件
+            document.getElementById("message-input").addEventListener("keydown", handleKeyDown);
             
-            let fileName = prompt("请输入文件名：", "forestaltar_" + new Date().toLocaleDateString());
-            if (!fileName) return; // 如果用户取消输入，则不下载
+            // 清除按钮事件
+            document.getElementById("clear-button").addEventListener("click", clearChat);
             
-            let blob = new Blob([chatText], { type: "text/plain" });
-            let a = document.createElement("a");
-            a.href = URL.createObjectURL(blob);
-            a.download = fileName + ".txt";
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        });
-
-        // 使用说明显示/隐藏
-        document.getElementById("toggle-instructions").addEventListener("click", function() {
-            document.getElementById("instructions-box").style.display = "block";
-        });
-
-        document.getElementById("close-instructions").addEventListener("click", function() {
-            document.getElementById("instructions-box").style.display = "none";
-        });
-
+            // 下载聊天记录事件
+            document.getElementById("download-chat").addEventListener("click", function() {
+                let chatHistory = JSON.parse(localStorage.getItem(STORAGE_KEY));
+                if (!chatHistory || chatHistory.length <= 1) {
+                    alert("没有冒险记录可下载。");
+                    return;
+                }
+                
+                let chatText = chatHistory
+                    .filter(msg => msg.role !== "system") // 过滤掉system提示
+                    .map(msg => {
+                        if (msg.role === "assistant") {
+                            return `GM：${msg.content}`;
+                        } else {
+                            return `你：${msg.content}`;
+                        }
+                    })
+                    .join("\n\n"); // 每条消息之间空一行
+                
+                let fileName = prompt("请输入文件名：", "森林祭坛冒险_" + new Date().toLocaleDateString());
+                if (!fileName) return; // 如果用户取消输入，则不下载
+                
+                let blob = new Blob([chatText], { type: "text/plain" });
+                let a = document.createElement("a");
+                a.href = URL.createObjectURL(blob);
+                a.download = fileName + ".txt";
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            });
+            
+            // 使用说明显示/隐藏事件
+            document.getElementById("toggle-instructions").addEventListener("click", function() {
+                document.getElementById("instructions-box").style.display = "block";
+            });
+            
+            document.getElementById("close-instructions").addEventListener("click", function() {
+                document.getElementById("instructions-box").style.display = "none";
+            });
+        }
+        
         // 初始化页面
-        initChat();
+        function init() {
+            initChat();
+            addEventListeners();
+        }
+        
+        // 页面加载完成后执行初始化
+        document.addEventListener("DOMContentLoaded", init);
     </script>
 </body>
 </html>

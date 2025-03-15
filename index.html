@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>forest altar</title>
+    <title>Forest Altar</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -182,12 +182,12 @@
         <p>这里流传着一个古老的契约——你会选择接受还是拒绝？</p>
         <p>但这契约到底意味着什么？森林里究竟藏着怎样的秘密？</p>
         <p>—你只有一次选择的机会，谨慎决定你的命运。</p>
-        <p style="color: gray;">每次对话最大记忆为50条，超过50条达到51条时会删除最久远的第1条记忆。每小时限使用5000tokens。选择【清除聊天记录】时会开启一个新的对话串。可以点击【下载聊天记录】下载可命名的txt格式的聊天记录文件。</p>
+        <p style="color: gray;">每次对话最大记忆为50条，超过50条达到51条时会删除最久远的第1条记忆。每小时限使用5000tokens。选择【清除冒险记录】时会开启一个新的对话串。可以点击【下载冒险记录】下载可命名的txt格式的聊天记录文件。</p>
         <p style="color: #4d4d4d;">@我为什么在墙上</p>
     </div>
 </div>
 
-    <h1 id="page-title">forest altar</h1>
+    <h1 id="page-title">Forest Altar</h1>
     <button id="clear-button" onclick="clearChat()">清除冒险记录</button>
     <div id="chat-container">
         <div id="chat-box"></div>
@@ -203,7 +203,7 @@
         const STORAGE_KEY = "chat_history_forestaltar";
         const TOKENS_LIMIT = 50000000; // 设置tokens限制
         const RESET_PERIOD = 1 * 60 * 60 * 1000; // 1小时的毫秒数
-        const TOKENS_STORAGE_KEY = "naya_tokens_usage";
+        const TOKENS_STORAGE_KEY = "forestaltar_tokens_usage";
         // RPG冒险游戏 - 森林祭坛的契约
 const SYSTEM_PROMPT = {
     "role": "system",
